@@ -20,6 +20,8 @@ const botonesMiras = document.querySelectorAll('.miraButton');
 const $instrucciones = document.getElementById('otros1');
 const $creditos = document.getElementById('otros2');
 const $play = document.getElementById('play');
+const $instruccionesVentana = document.getElementById('instrucciones')
+const $toOpciones = document.getElementById('returnInstrucciones');
 
 // Recortes Sprites
 const mira = {
@@ -118,7 +120,17 @@ botonesMiras.forEach((btn) => {
         miraSelect = btn.innerText
     });
 });
-// $instrucciones.addEventListener('click', )
+
+$instrucciones.addEventListener('click', () => {
+    $menu.style.display = 'none'
+    $instruccionesVentana.style.display = 'flex'
+});
+
+$toOpciones.addEventListener('click', () => {
+    $menu.style.display = 'flex'
+    $instruccionesVentana.style.display = 'none'
+});
+
 // $creditos.addEventListener('click', )
 $play.addEventListener('click', toPlay)
 

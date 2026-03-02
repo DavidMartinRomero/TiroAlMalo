@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiro al malo</title>
+    <link rel="stylesheet" href="/CSS/general.css">
+    <link rel="icon" href="/Images/miras/Mira3.png" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <p>tiro al malo</p>
+    </header>
+
+    <div id="menu" style="display: none">
+        <fieldset>
+            <legend style="text-align: center;">Opciones</legend>
+            <p>dificultad</p>
+            <button id="difButton1" class="difButton active">Easy</button>
+            <button id="difButton2" class="difButton">Normal</button>
+            <button id="difButton3" class="difButton">Hard</button>
+            <p>Selección mira</p>
+            <button id="miraButton1" class="miraButton active">1</button>
+            <button id="miraButton2" class="miraButton">2</button>
+            <button id="miraButton3" class="miraButton">3</button>
+            <button id="miraButton4" class="miraButton">4</button>
+            <button id="miraButton5" class="miraButton">5</button>
+            <button id="miraButton6" class="miraButton">6</button>
+            <button id="miraButton7" class="miraButton">7</button>
+            <button id="miraButton8" class="miraButton">8</button>
+            <button id="miraButton9" class="miraButton">9</button>
+            <p>Otros</p>
+            <button id="otros1" class="otrosButton">Instrucciones</button>
+            <button id="otros2" class="otrosButton">Creditos</button>
+            <p>Al lio.......</p>
+            <button id="play">Jugar</button>
+
+        </fieldset>
+    </div>
+
+    <div id="instrucciones" style="display: flex">
+        <fieldset>
+            <legend style="text-align: center;">Instrucciones</legend>
+            <p>Bienvenido.</p>
+            <p></p>
+            <button id="returnInstrucciones">Opciones</button>
+
+        </fieldset>
+    </div>
+    
+    <canvas id="canvas"></canvas>
+    <img id="fondo1" src="/Images/Fondo1.png" alt="" style="display: none;">
+    <img id="fondo2" src="/Images/Fondo2.png" alt="" style="display: none;">
+    <img id="fondo3" src="/Images/Fondo3.png" alt="" style="display: none;">
+    <img id="sprites" src="/Images/Sprites.png" alt="" style="display: none;">
+    <script src="/JS/script.js"></script>
+</body>
+
+</html>

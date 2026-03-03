@@ -65,6 +65,12 @@ const numeros = {
     tamañoRecorte: { X: 200, Y: 300 }
 }
 
+const gameOver = {
+    inicio: { X: 40, Y: 2100},
+    tamañoRecorte: { X: 2100, Y: 546},
+    tamPantalla: { X: 2100, Y: 546}
+}
+
 // Posiciones salida
 const posicionesSalida = {
     1: { X: 125, Y: 370, sizeX: 125, sizeY: 260 }, // 370 abajo, 250 arriba => 120 pixeles.
@@ -175,6 +181,7 @@ function pain() {
         vidaActual--
     } else {
         jugando = false
+        muertoMatao()
     }
 }
 
@@ -190,7 +197,14 @@ function disparar(e) {
             personaje = 7
         }
     }
+}
 
+function muertoMatao() {
+    secuencia = 3
+    setInterval(() => {
+        secuencia = 0,
+        $menu.style.display = 'flex'
+     } , 2000)
 }
 
 function dibujarPersonajeActual() {
@@ -257,18 +271,32 @@ function draw() {
         }
 
         if (secuencia == 2) {
-            if (posicion <= 8) 
+            if (posicion <= 8)
                 dibujarPersonajeActual();
 
             ctx.drawImage($fondo2, 0, 0, canvas.width, canvas.height);
 
-            if (posicion > 8) 
+            if (posicion > 8)
                 dibujarPersonajeActual();
 
             ctx.drawImage($fondo1, 0, 0, canvas.width, canvas.height);
         }
 
+        
+
     }
+
+    if (secuencia == 3) {
+             ctx.drawImage(
+                $sprites,
+                gameOver.inicio.X, gameOver.inicio.Y,
+                gameOver.tamañoRecorte.X, gameOver.tamañoRecorte.Y,
+                canvas.width - gameOver.tamañoRecorte.X / 1.7,
+                canvas.height / 2 - gameOver.tamañoRecorte.Y / 2,
+                gameOver.tamPantalla.X,
+                gameOver.tamPantalla.Y
+            );
+        }
 
     // Dibujo la mira
     ctx.drawImage(

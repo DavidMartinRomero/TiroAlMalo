@@ -95,8 +95,8 @@ const posicionesSalida = {
 let miraSelect = 1
 let vidaActual = 5
 let dificultad = 1
-let posicion = 9
 let personaje = 3;
+let num = 3
 let mouseX
 let mouseY
 let disparoX
@@ -156,7 +156,7 @@ function toPlay() {
     $menu.style.display = 'none'
     jugando = true;
     secuencia = 1;
-    num = 3
+    
     timerSecuencia = setInterval(() => {
         num--;
         if (num <= 0) {
@@ -164,7 +164,7 @@ function toPlay() {
             secuencia = 2;
             ongame();
         }
-    }, 1000);
+    }, 500);
 }
 
 function ongame() {
@@ -180,7 +180,7 @@ function pain() {
     if (vidaActual > 1) {
         vidaActual--
     } else {
-        jugando = false
+        
         muertoMatao()
     }
 }
@@ -201,10 +201,16 @@ function disparar(e) {
 
 function muertoMatao() {
     secuencia = 3
-    setInterval(() => {
+    jugando = false
+
+    setTimeout(() => {
         secuencia = 0,
+        vidaActual = 5,
         $menu.style.display = 'flex'
-     } , 2000)
+        timerEspera = 0
+        estadoPersonaje = 0
+        num = 3
+     } , 3000);
 }
 
 function dibujarPersonajeActual() {

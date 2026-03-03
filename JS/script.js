@@ -66,9 +66,9 @@ const numeros = {
 }
 
 const gameOver = {
-    inicio: { X: 40, Y: 2100},
-    tamañoRecorte: { X: 2100, Y: 546},
-    tamPantalla: { X: 2100, Y: 546}
+    inicio: { X: 40, Y: 2100 },
+    tamañoRecorte: { X: 2100, Y: 546 },
+    tamPantalla: { X: 2100, Y: 546 }
 }
 
 // Posiciones salida
@@ -106,6 +106,7 @@ let secuencia = 0;
 let yAnimacion = 0;
 let estadoPersonaje = 0; // 0: escondido, 1: subiendo, 2: esperando, 3: bajando
 let timerEspera = 0;
+let puntuacion = 0
 
 //
 // Eventos
@@ -156,7 +157,7 @@ function toPlay() {
     $menu.style.display = 'none'
     jugando = true;
     secuencia = 1;
-    
+
     timerSecuencia = setInterval(() => {
         num--;
         if (num <= 0) {
@@ -180,7 +181,7 @@ function pain() {
     if (vidaActual > 1) {
         vidaActual--
     } else {
-        
+
         muertoMatao()
     }
 }
@@ -194,6 +195,7 @@ function disparar(e) {
             pain()
             personaje = 7
         } else {
+            puntuacion += 10
             personaje = 7
         }
     }
@@ -205,12 +207,12 @@ function muertoMatao() {
 
     setTimeout(() => {
         secuencia = 0,
-        vidaActual = 5,
-        $menu.style.display = 'flex'
+            vidaActual = 5,
+            $menu.style.display = 'flex'
         timerEspera = 0
         estadoPersonaje = 0
         num = 3
-     } , 3000);
+    }, 3000);
 }
 
 function dibujarPersonajeActual() {
@@ -225,8 +227,11 @@ function dibujarPersonajeActual() {
         timerEspera++;
         if (timerEspera > (100 / (dificultad * 3))) {
             estadoPersonaje = 3;
-            if (personajes[personaje].type == 2)
+            if (personajes[personaje].type == 2) {
                 pain()
+            } else {
+                puntuacion += 5
+            }
         }
     }
     else if (estadoPersonaje == 3) { // Baja
@@ -288,21 +293,28 @@ function draw() {
             ctx.drawImage($fondo1, 0, 0, canvas.width, canvas.height);
         }
 
-        
+        ctx.draw.innerText
 
     }
 
     if (secuencia == 3) {
-             ctx.drawImage(
-                $sprites,
-                gameOver.inicio.X, gameOver.inicio.Y,
-                gameOver.tamañoRecorte.X, gameOver.tamañoRecorte.Y,
-                canvas.width - gameOver.tamañoRecorte.X / 1.7,
-                canvas.height / 2 - gameOver.tamañoRecorte.Y / 2,
-                gameOver.tamPantalla.X,
-                gameOver.tamPantalla.Y
-            );
-        }
+        ctx.drawImage(
+            $sprites,
+            gameOver.inicio.X, gameOver.inicio.Y,
+            gameOver.tamañoRecorte.X, gameOver.tamañoRecorte.Y,
+            canvas.width - gameOver.tamañoRecorte.X / 1.7,
+            canvas.height / 2 - gameOver.tamañoRecorte.Y / 2,
+            gameOver.tamPantalla.X,
+            gameOver.tamPantalla.Y
+        );
+    }
+
+    ctx.font = "50px shot";
+    ctx.fillStyle = "yellow";
+    ctx.textAlign = "right";
+    // Pintamos el Score en la esquina superior derecha (1440, 60)
+    ctx.fillText("SCORE: " + puntuacion, 1440, 70);
+    ctx.strokeText("SCORE: " + puntuacion, 1440, 70);
 
     // Dibujo la mira
     ctx.drawImage(
@@ -312,5 +324,7 @@ function draw() {
         mouseX - (mira.tamaño / 2), mouseY - (mira.tamaño / 2),
         mira.tamaño, mira.tamaño
     );
+
+    ctx.draw.innerText('prueba')
 }
 setInterval(draw, 20);

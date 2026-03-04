@@ -88,7 +88,6 @@ const posicionesSalida = {
     13: { X: 880, Y: 407, sizeX: 150, sizeY: 310 }, // 407 abajo, 262 arriba
     14: { X: 1060, Y: 407, sizeX: 150, sizeY: 310 }, // 407 abajo, 262 arriba
     15: { X: 1250, Y: 405, sizeX: 150, sizeY: 310 }, // 405 abajo, 260 arriba
-
 }
 
 // Valores iniciales
@@ -111,7 +110,6 @@ let puntuacion = 0
 //
 // Eventos
 //
-//$menu.addEventListener('click', )
 botonesDificultad.forEach((btn, index) => {
     btn.addEventListener('click', () => {
         botonesDificultad.forEach(b => b.classList.remove('active'));
@@ -157,6 +155,7 @@ function toPlay() {
     $menu.style.display = 'none'
     jugando = true;
     secuencia = 1;
+    puntuacion = 0
 
     timerSecuencia = setInterval(() => {
         num--;
@@ -181,7 +180,6 @@ function pain() {
     if (vidaActual > 1) {
         vidaActual--
     } else {
-
         muertoMatao()
     }
 }
@@ -229,7 +227,7 @@ function dibujarPersonajeActual() {
             estadoPersonaje = 3;
             if (personajes[personaje].type == 2) {
                 pain()
-            } else {
+            } else if (personajes[personaje].type == 1) {
                 puntuacion += 5
             }
         }
@@ -266,7 +264,6 @@ function draw() {
             900, 205,     // Tamaño del recorte X,Y
             30, 10, // Posición en canvas X, Y
             350, 80 // Ancho final en el canvas, // Alto final en el canvas
-
         );
 
         if (secuencia == 1) {
@@ -292,9 +289,6 @@ function draw() {
 
             ctx.drawImage($fondo1, 0, 0, canvas.width, canvas.height);
         }
-
-        ctx.draw.innerText
-
     }
 
     if (secuencia == 3) {
@@ -309,10 +303,10 @@ function draw() {
         );
     }
 
-    ctx.font = "50px shot";
+    // Pintamos el Score en la esquina superior derecha (1440, 60)
+    ctx.font = "50px system";
     ctx.fillStyle = "yellow";
     ctx.textAlign = "right";
-    // Pintamos el Score en la esquina superior derecha (1440, 60)
     ctx.fillText("SCORE: " + puntuacion, 1440, 70);
     ctx.strokeText("SCORE: " + puntuacion, 1440, 70);
 
@@ -324,7 +318,5 @@ function draw() {
         mouseX - (mira.tamaño / 2), mouseY - (mira.tamaño / 2),
         mira.tamaño, mira.tamaño
     );
-
-    ctx.draw.innerText('prueba')
 }
 setInterval(draw, 20);

@@ -221,12 +221,9 @@ function disparar(e) {
             movimientoHumo++;
             if (movimientoHumo >= 7) {
                 clearInterval(secuenciaHumo);
-                pintaHumo()
                 aniquilar = 0
                 movimientoHumo = 0
             }
-            pintaHumo()
-            movimientoHumo++;
         }, 50);
     }
 }

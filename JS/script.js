@@ -71,6 +71,12 @@ const gameOver = {
     tamPantalla: { X: 2100, Y: 546 }
 }
 
+const score = {
+    inicio: { X: 1000, Y: 1300 },
+    tamañoRecorte: { X: 1032, Y: 366 },
+    tamPantalla: { X: 300, Y: 120 }
+}
+
 // Posiciones salida
 const posicionesSalida = {
     1: { X: 125, Y: 370, sizeX: 125, sizeY: 260 }, // 370 abajo, 250 arriba => 120 pixeles.
@@ -304,11 +310,20 @@ function draw() {
     }
 
     // Pintamos el Score en la esquina superior derecha (1440, 60)
+    ctx.drawImage(
+            $sprites,
+            score.inicio.X, score.inicio.Y,
+            score.tamañoRecorte.X, score.tamañoRecorte.Y,
+            canvas.width - 310,
+            10,
+            score.tamPantalla.X,
+            score.tamPantalla.Y
+        );
     ctx.font = "50px system";
     ctx.fillStyle = "yellow";
     ctx.textAlign = "right";
-    ctx.fillText("SCORE: " + puntuacion, 1440, 70);
-    ctx.strokeText("SCORE: " + puntuacion, 1440, 70);
+    ctx.fillText(puntuacion, 1420, 94);
+    ctx.strokeText(puntuacion, 1420, 94);
 
     // Dibujo la mira
     ctx.drawImage(

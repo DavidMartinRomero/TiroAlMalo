@@ -58,6 +58,18 @@ const personajes = {
     tamaño2: { X: 250, Y: 520 },
 }
 
+const humo = {
+    1: { X: 4, Y: 2750 },
+    2: { X: 300, Y: 2750 },
+    3: { X: 600, Y: 2750 },
+    4: { X: 900, Y: 2750 },
+    5: { X: 1200, Y: 2750 },
+    6: { X: 1500, Y: 2750 },
+    7: { X: 1800, Y: 2750 },
+    tamañoRecorte: { X: 300, Y: 350 },
+    tamañoPantalla: { X: 150, Y: 175 }
+}
+
 const numeros = {
     1: { X: 40, Y: 1700 },
     2: { X: 240, Y: 1700 },
@@ -102,6 +114,7 @@ let vidaActual = 5
 let dificultad = 1
 let personaje = 3;
 let num = 3
+let movimientoHumo = 0
 let mouseX
 let mouseY
 let disparoX
@@ -202,6 +215,19 @@ function disparar(e) {
             puntuacion += 10
             personaje = 7
         }
+
+        secuenciaHumo = setInterval(() => {
+            aniquilar = 1
+            movimientoHumo++;
+            if (movimientoHumo >= 7) {
+                clearInterval(secuenciaHumo);
+                pintaHumo()
+                aniquilar = 0
+                movimientoHumo = 0
+            }
+            pintaHumo()
+            movimientoHumo++;
+        }, 50);
     }
 }
 
@@ -258,6 +284,16 @@ function dibujarPersonajeActual() {
     }
 }
 
+function pintaHumo() {
+    ctx.drawImage(
+        $sprites,
+        humo[movimientoHumo].X, humo[movimientoHumo].Y,
+        humo.tamañoRecorte.X, humo.tamañoRecorte.Y,
+        posicionesSalida[posicion].X, yAnimacion - 20,
+        humo.tamañoPantalla.X, humo.tamañoPantalla.Y
+    );
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage($fondo3, 0, 0, canvas.width, canvas.height);
@@ -285,14 +321,18 @@ function draw() {
         }
 
         if (secuencia == 2) {
-            if (posicion <= 8)
+            if (posicion <= 8) {
                 dibujarPersonajeActual();
-
+                if (aniquilar == 1)
+                    pintaHumo();
+            }
             ctx.drawImage($fondo2, 0, 0, canvas.width, canvas.height);
 
-            if (posicion > 8)
+            if (posicion > 8) {
                 dibujarPersonajeActual();
-
+                if (aniquilar == 1)
+                    pintaHumo();
+            }
             ctx.drawImage($fondo1, 0, 0, canvas.width, canvas.height);
         }
     }
@@ -311,14 +351,14 @@ function draw() {
 
     // Pintamos el Score en la esquina superior derecha (1440, 60)
     ctx.drawImage(
-            $sprites,
-            score.inicio.X, score.inicio.Y,
-            score.tamañoRecorte.X, score.tamañoRecorte.Y,
-            canvas.width - 310,
-            10,
-            score.tamPantalla.X,
-            score.tamPantalla.Y
-        );
+        $sprites,
+        score.inicio.X, score.inicio.Y,
+        score.tamañoRecorte.X, score.tamañoRecorte.Y,
+        canvas.width - 310,
+        10,
+        score.tamPantalla.X,
+        score.tamPantalla.Y
+    );
     ctx.font = "50px system";
     ctx.fillStyle = "yellow";
     ctx.textAlign = "right";

@@ -125,6 +125,7 @@ let yAnimacion = 0;
 let estadoPersonaje = 0; // 0: escondido, 1: subiendo, 2: esperando, 3: bajando
 let timerEspera = 0;
 let puntuacion = 0
+let aniquilar = 0
 
 //
 // Eventos
@@ -224,7 +225,7 @@ function disparar(e) {
                 aniquilar = 0
                 movimientoHumo = 0
             }
-        }, 50);
+        }, 60);
     }
 }
 
@@ -286,7 +287,7 @@ function pintaHumo() {
         $sprites,
         humo[movimientoHumo].X, humo[movimientoHumo].Y,
         humo.tamañoRecorte.X, humo.tamañoRecorte.Y,
-        posicionesSalida[posicion].X, yAnimacion - 20,
+        posicionesSalida[posicion].X, posicionesSalida[posicion].Y - 150,
         humo.tamañoPantalla.X, humo.tamañoPantalla.Y
     );
 }
@@ -320,17 +321,16 @@ function draw() {
         if (secuencia == 2) {
             if (posicion <= 8) {
                 dibujarPersonajeActual();
-                if (aniquilar == 1)
-                    pintaHumo();
             }
             ctx.drawImage($fondo2, 0, 0, canvas.width, canvas.height);
 
             if (posicion > 8) {
                 dibujarPersonajeActual();
-                if (aniquilar == 1)
-                    pintaHumo();
             }
             ctx.drawImage($fondo1, 0, 0, canvas.width, canvas.height);
+
+            if (aniquilar == 1)
+                    pintaHumo();
         }
     }
 

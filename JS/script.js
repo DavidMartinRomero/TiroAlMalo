@@ -125,7 +125,7 @@ let yAnimacion = 0;
 let estadoPersonaje = 0; // 0: escondido, 1: subiendo, 2: esperando, 3: bajando
 let timerEspera = 0;
 let puntuacion = 0
-let aniquilar = 0
+let aniquilar = false
 
 //
 // Eventos
@@ -216,16 +216,17 @@ function disparar(e) {
             puntuacion += 10
             personaje = 7
         }
-
-        secuenciaHumo = setInterval(() => {
-            aniquilar = 1
-            movimientoHumo++;
-            if (movimientoHumo >= 7) {
-                clearInterval(secuenciaHumo);
-                aniquilar = 0
-                movimientoHumo = 0
-            }
-        }, 60);
+        if (!aniquilar) {
+            secuenciaHumo = setInterval(() => {
+                aniquilar = true
+                movimientoHumo++;
+                if (movimientoHumo >= 7) {
+                    clearInterval(secuenciaHumo);
+                    aniquilar = false
+                    movimientoHumo = 0
+                }
+            }, 60);
+        }
     }
 }
 
@@ -329,8 +330,8 @@ function draw() {
             }
             ctx.drawImage($fondo1, 0, 0, canvas.width, canvas.height);
 
-            if (aniquilar == 1)
-                    pintaHumo();
+            if (aniquilar)
+                pintaHumo();
         }
     }
 

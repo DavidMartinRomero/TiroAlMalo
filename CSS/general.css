@@ -83,7 +83,7 @@ footer {
 
 }
 
-#instrucciones{
+#instrucciones, #creditos{
     height: fit-content;
     border: 2px solid black;
     position: absolute;
@@ -97,7 +97,7 @@ footer {
     }
     p{
         font-family: 'system';
-        color: black;
+        color: rgb(243, 238, 238);
         margin-bottom: 0%; 
         font-size: 30px;
     }
@@ -105,30 +105,55 @@ footer {
 }
 
 .difButton{
-    width: 120px;
+    margin-left: 4px;
+    width: 145px;
     height: 40px;
     border: 1px solid black;
 }
 
 .miraButton{
-    width: 40px;
+    width: 45px;
     height: 40px;
     border: 1px solid black;
 }
 
 .otrosButton{
-    width: 200px;
+    width: 230px;
     height: 40px;
     border: 1px solid black;
 }
 
 .active{
-    border: 2px solid red;
+    border: 2px solid rgb(255, 166, 0);
     transform: scale(1.1);
 }
 
 #play{
-    width: 200px;
+    width: 470px;
     height: 60px;
     border: 1px solid black;
+}
+
+button {
+  display: inline-block;
+  background-color: #311f08;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-weight: bold;
+  /* Sombras para el relieve */
+  box-shadow: 0 5px 0 #1a1206; 
+  transition: all 0.1s;
+  position: relative;
+}
+
+button:hover {
+  background-color: #54a0ff;
+}
+
+button:active {
+  /* Al hacer click, la sombra se reduce y el botón baja */
+  box-shadow: 0 2px 0 #2c3e50;
+  top: 3px;
 }

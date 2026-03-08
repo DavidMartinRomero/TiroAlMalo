@@ -19,9 +19,11 @@ const botonesDificultad = [$Dificultad1, $Dificultad2, $Dificultad3];
 const botonesMiras = document.querySelectorAll('.miraButton');
 const $instrucciones = document.getElementById('otros1');
 const $creditos = document.getElementById('otros2');
+const $creditosVentana = document.getElementById('creditos')
 const $play = document.getElementById('play');
 const $instruccionesVentana = document.getElementById('instrucciones')
 const $toOpciones = document.getElementById('returnInstrucciones');
+const $toOpciones2 = document.getElementById('returnInstrucciones2');
 
 // Recortes Sprites
 const mira = {
@@ -175,9 +177,19 @@ $instrucciones.addEventListener('click', () => {
     $instruccionesVentana.style.display = 'flex'
 });
 
+$creditos.addEventListener('click', () => {
+    $menu.style.display = 'none'
+    $creditosVentana.style.display = 'flex'
+});
+
 $toOpciones.addEventListener('click', () => {
     $menu.style.display = 'flex'
     $instruccionesVentana.style.display = 'none'
+});
+
+$toOpciones2.addEventListener('click', () => {
+    $menu.style.display = 'flex'
+    $creditosVentana.style.display = 'none'
 });
 
 // $creditos.addEventListener('click', )

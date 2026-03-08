@@ -54,8 +54,6 @@ const personajes = {
     5: { X: 1300, Y: 800, type: 2 },
     6: { X: 1550, Y: 800, type: 2 },
     7: { X: 1800, Y: 300, type: 3 },
-    tamaño1: { X: 125, Y: 260 },
-    tamaño2: { X: 250, Y: 520 },
 }
 
 const humo = {
@@ -89,18 +87,41 @@ const score = {
     tamPantalla: { X: 300, Y: 120 }
 }
 
+const corazon = {
+    PosicionRecorte: { X: 2200, Y: 40 },
+    RecorteSize: { X: 200, Y: 200 },
+    Salidas: {
+        1: { X: 170, Y: 380 },
+        2: { X: 310, Y: 380 },
+        3: { X: 465, Y: 378 },
+        4: { X: 602, Y: 377 },
+        5: { X: 735, Y: 375 },
+        6: { X: 860, Y: 375 },
+        7: { X: 1000, Y: 373 },
+        8: { X: 1135, Y: 373 },
+        9: { X: 110, Y: 450 },
+        10: { X: 325, Y: 445 },
+        11: { X: 520, Y: 445 },
+        12: { X: 720, Y: 445 },
+        13: { X: 940, Y: 440 },
+        14: { X: 1125, Y: 440 },
+        15: { X: 1310, Y: 440 }
+    },
+    Tamaño: { X: 35, Y: 35 }
+}
+
 // Posiciones salida
 const posicionesSalida = {
-    1: { X: 125, Y: 370, sizeX: 125, sizeY: 260 }, // 370 abajo, 250 arriba => 120 pixeles.
-    2: { X: 260, Y: 372, sizeX: 125, sizeY: 260 }, // 372 abajo, 252 arriba
-    3: { X: 417, Y: 369, sizeX: 125, sizeY: 260 }, // 369 abajo, 249 arriba
-    4: { X: 555, Y: 365, sizeX: 125, sizeY: 260 }, // 365 abajo, 245 arriba
-    5: { X: 685, Y: 365, sizeX: 125, sizeY: 260 }, // 365 abajo, 245 arriba
-    6: { X: 812, Y: 365, sizeX: 125, sizeY: 260 }, // 365 abajo, 245 arriba
-    7: { X: 953, Y: 361, sizeX: 125, sizeY: 260 }, // 361 abajo, 241 arriba
-    8: { X: 1093, Y: 363, sizeX: 115, sizeY: 250 }, // 363 abajo, 243 arriba
+    1: { X: 140, Y: 370, sizeX: 100, sizeY: 210 }, // 370 abajo, 250 arriba => 120 pixeles.
+    2: { X: 280, Y: 372, sizeX: 100, sizeY: 210 }, // 372 abajo, 252 arriba
+    3: { X: 430, Y: 369, sizeX: 100, sizeY: 210 }, // 369 abajo, 249 arriba
+    4: { X: 570, Y: 365, sizeX: 100, sizeY: 210 }, // 365 abajo, 245 arriba
+    5: { X: 700, Y: 365, sizeX: 100, sizeY: 210 }, // 365 abajo, 245 arriba
+    6: { X: 825, Y: 365, sizeX: 100, sizeY: 210 }, // 365 abajo, 245 arriba
+    7: { X: 967, Y: 361, sizeX: 100, sizeY: 210 }, // 361 abajo, 241 arriba
+    8: { X: 1100, Y: 363, sizeX: 100, sizeY: 210 }, // 363 abajo, 243 arriba
     9: { X: 55, Y: 415, sizeX: 150, sizeY: 310 }, // 415 abajo, 270 arriba
-    10: { X: 260, Y: 415, sizeX: 150, sizeY: 310 }, // 415 abajo, 270 arriba
+    10: { X: 265, Y: 415, sizeX: 150, sizeY: 310 }, // 415 abajo, 270 arriba
     11: { X: 460, Y: 410, sizeX: 150, sizeY: 310 }, // 410 abajo, 265 arriba
     12: { X: 660, Y: 410, sizeX: 150, sizeY: 310 }, // 410 abajo, 265 arriba
     13: { X: 880, Y: 407, sizeX: 150, sizeY: 310 }, // 407 abajo, 262 arriba
@@ -120,12 +141,14 @@ let mouseY
 let disparoX
 let disparoY
 let jugando = false;
-let secuencia = 0;
+let secuencia = 4;
 let yAnimacion = 0;
 let estadoPersonaje = 0; // 0: escondido, 1: subiendo, 2: esperando, 3: bajando
 let timerEspera = 0;
 let puntuacion = 0
 let aniquilar = false
+let corazonEstado = false
+let posicionCorazon 
 
 //
 // Eventos
@@ -346,6 +369,21 @@ function draw() {
             gameOver.tamPantalla.Y
         );
     }
+
+if (secuencia == 4) { 
+    ctx.drawImage($fondo3, 0, 0, canvas.width, canvas.height);
+    if (corazonEstado) {                                                  //               
+        ctx.drawImage(                                                    //       
+            $sprites,                                                     //       
+            corazon.PosicionRecorte.X, corazon.PosicionRecorte.Y,         //        Bloque para pruebas de posiciones, forzar la entrada con el valor inical de secuencia                                           
+            corazon.RecorteSize.X, corazon.RecorteSize.Y,                 //                                           
+            corazon.Salidas[posicionCorazon].X,                           //                                   
+            corazon.Salidas[posicionCorazon].Y,                           //                                   
+            corazon.Tamaño.X,                                             //               
+            corazon.Tamaño.Y  
+        );
+    }
+}
 
     // Pintamos el Score en la esquina superior derecha (1440, 60)
     ctx.drawImage(

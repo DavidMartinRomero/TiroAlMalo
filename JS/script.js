@@ -241,6 +241,7 @@ function pain() {
 }
 
 function disparar(e) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     disparoX = e.offsetX
     disparoY = e.offsetY;
     if ((disparoX > posicionesSalida[posicion].X && disparoX < (posicionesSalida[posicion].X + posicionesSalida[posicion].sizeX))

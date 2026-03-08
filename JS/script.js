@@ -148,7 +148,8 @@ let timerEspera = 0;
 let puntuacion = 0
 let aniquilar = false
 let corazonEstado = false
-let posicionCorazon 
+let posicionCorazon
+let probabilidadCorazon = 10 / dificultad
 
 //
 // Eventos
@@ -251,6 +252,32 @@ function disparar(e) {
             }, 60);
         }
     }
+
+    if ((disparoX > corazon.Salidas[posicionCorazon].X && disparoX < (corazon.Salidas[posicionCorazon].X + corazon.Tamaño.X))
+        && (disparoY > corazon.Salidas[posicionCorazon].Y && disparoY < (corazon.Salidas[posicionCorazon].Y + corazon.Tamaño.Y))
+        && corazonEstado) {
+        if (vidaActual < 5) {
+            vidaActual++
+            corazonEstado = false
+        }
+    }
+}
+
+function extraLife() {
+    if (secuencia != 2 || vidaActual == 5)
+        return
+
+    aleatorio100 = Math.floor(Math.random() * 100 + 1)
+
+    if (aleatorio100 < probabilidadCorazon && corazonEstado == false) {
+        posicionCorazon = Math.floor(Math.random() * 15 + 1)
+        corazonEstado = true;
+        setTimeout(() => {
+            corazonEstado = false
+        }, 3000);
+    }
+
+
 }
 
 function muertoMatao() {
@@ -307,13 +334,23 @@ function dibujarPersonajeActual() {
 }
 
 function pintaHumo() {
-    ctx.drawImage(
-        $sprites,
-        humo[movimientoHumo].X, humo[movimientoHumo].Y,
-        humo.tamañoRecorte.X, humo.tamañoRecorte.Y,
-        posicionesSalida[posicion].X, posicionesSalida[posicion].Y - 150,
-        humo.tamañoPantalla.X, humo.tamañoPantalla.Y
-    );
+    if (posicion < 8) {
+        ctx.drawImage(
+            $sprites,
+            humo[movimientoHumo].X, humo[movimientoHumo].Y,
+            humo.tamañoRecorte.X, humo.tamañoRecorte.Y,
+            posicionesSalida[posicion].X - 38, posicionesSalida[posicion].Y - 150,
+            humo.tamañoPantalla.X, humo.tamañoPantalla.Y
+        );
+    } else {
+        ctx.drawImage(
+            $sprites,
+            humo[movimientoHumo].X, humo[movimientoHumo].Y,
+            humo.tamañoRecorte.X, humo.tamañoRecorte.Y,
+            posicionesSalida[posicion].X, posicionesSalida[posicion].Y - 150,
+            humo.tamañoPantalla.X, humo.tamañoPantalla.Y
+        );
+    }
 }
 
 function draw() {
@@ -353,8 +390,21 @@ function draw() {
             }
             ctx.drawImage($fondo1, 0, 0, canvas.width, canvas.height);
 
-            if (aniquilar)
+            if (aniquilar) {
                 pintaHumo();
+            }
+
+            if (corazonEstado) {
+                ctx.drawImage(
+                    $sprites,
+                    corazon.PosicionRecorte.X, corazon.PosicionRecorte.Y,
+                    corazon.RecorteSize.X, corazon.RecorteSize.Y,
+                    corazon.Salidas[posicionCorazon].X,
+                    corazon.Salidas[posicionCorazon].Y,
+                    corazon.Tamaño.X,
+                    corazon.Tamaño.Y
+                );
+            }
         }
     }
 
@@ -370,20 +420,20 @@ function draw() {
         );
     }
 
-if (secuencia == 4) { 
-    ctx.drawImage($fondo3, 0, 0, canvas.width, canvas.height);
-    if (corazonEstado) {                                                  //               
-        ctx.drawImage(                                                    //       
-            $sprites,                                                     //       
-            corazon.PosicionRecorte.X, corazon.PosicionRecorte.Y,         //        Bloque para pruebas de posiciones, forzar la entrada con el valor inical de secuencia                                           
-            corazon.RecorteSize.X, corazon.RecorteSize.Y,                 //                                           
-            corazon.Salidas[posicionCorazon].X,                           //                                   
-            corazon.Salidas[posicionCorazon].Y,                           //                                   
-            corazon.Tamaño.X,                                             //               
-            corazon.Tamaño.Y  
-        );
+    if (secuencia == 4) {
+        ctx.drawImage($fondo3, 0, 0, canvas.width, canvas.height);
+        if (corazonEstado) {                                                  //               
+            ctx.drawImage(                                                    //       
+                $sprites,                                                     //       
+                corazon.PosicionRecorte.X, corazon.PosicionRecorte.Y,         //        Bloque para pruebas de posiciones, forzar la entrada con el valor inical de secuencia                                           
+                corazon.RecorteSize.X, corazon.RecorteSize.Y,                 //                                           
+                corazon.Salidas[posicionCorazon].X,                           //                                   
+                corazon.Salidas[posicionCorazon].Y,                           //                                   
+                corazon.Tamaño.X,                                             //               
+                corazon.Tamaño.Y
+            );
+        }
     }
-}
 
     // Pintamos el Score en la esquina superior derecha (1440, 60)
     ctx.drawImage(
@@ -411,3 +461,4 @@ if (secuencia == 4) {
     );
 }
 setInterval(draw, 20);
+setInterval(extraLife, 1000);

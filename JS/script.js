@@ -36,7 +36,7 @@ const mira = {
     7: 1480,
     8: 1720,
     9: 1960,
-    tamaño: 60,
+    tamaño: 60
 }
 
 const vida = {
@@ -55,7 +55,7 @@ const personajes = {
     4: { X: 1050, Y: 800, type: 2 },
     5: { X: 1300, Y: 800, type: 2 },
     6: { X: 1550, Y: 800, type: 2 },
-    7: { X: 1800, Y: 300, type: 3 },
+    7: { X: 1800, Y: 300, type: 3 }
 }
 
 const humo = {
@@ -266,7 +266,6 @@ function disparar(e) {
             puntuacion += 10
             personaje = 7
         }
-
     }
 
     if ((disparoX > corazon.Salidas[posicionCorazon].X && disparoX < (corazon.Salidas[posicionCorazon].X + corazon.Tamaño.X))
@@ -292,8 +291,6 @@ function extraLife() {
             corazonEstado = false
         }, 3000);
     }
-
-
 }
 
 function muertoMatao() {

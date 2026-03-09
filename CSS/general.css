@@ -58,7 +58,6 @@ footer {
     font-family: system-ui;
     color: rgba(0, 0, 0, 0.50);
     font-size: 20px;
-
     p{
         margin-bottom: 100px;
     }
@@ -73,16 +72,13 @@ footer {
     transform: translate(-50%, -50%);
     background-color: rgba(112, 57, 17, 0.767);
     font-size: 42px;
-
     button {
         font-size: 30px;
     }
-
     p {
         margin-bottom: 0%;
         font-size: 20px;
     }
-
 }
 
 #instrucciones,
@@ -95,11 +91,9 @@ footer {
     transform: translate(-50%, -50%);
     background-color: rgba(112, 57, 17, 0.767);
     font-size: 42px;
-
     button {
         font-size: 30px;
     }
-
     p {
         font-family: 'system';
         color: rgb(243, 238, 238);

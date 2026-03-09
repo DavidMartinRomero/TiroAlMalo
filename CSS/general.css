@@ -2,16 +2,10 @@
     border: 0;
     box-sizing: border-box;
 }
-@font-face {
-    font-family: 'shot'; 
-    src: url('/Fonts/SHOT.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
 
 @font-face {
-    font-family: 'durango'; 
-    src: url('/Fonts/Durango\ Western\ Eroded\ Demo.otf') format('opentype');
+    font-family: 'shot';
+    src: url('/Fonts/SHOT.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -27,7 +21,7 @@ body {
     font-size: 180px;
     display: grid;
     grid-template-rows: 100px 1fr 50px;
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
     grid-template-areas:
         "header"
         "canvas"
@@ -38,17 +32,13 @@ header {
     display: flex;
     margin: 0;
     height: 200px;
+    text-shadow:
+        11px 11px rgba(0, 0, 0, 0.541);
     grid-area: header;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    img{
-        width: 70px;
-        height: 70px;
-        margin-right: 50px;
-    }
 }
-
 
 canvas {
     grid-area: canvas;
@@ -62,9 +52,19 @@ canvas {
 
 footer {
     grid-area: footer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: system-ui;
+    color: rgba(0, 0, 0, 0.50);
+    font-size: 20px;
+
+    p{
+        margin-bottom: 100px;
+    }
 }
 
-#menu{
+#menu {
     height: fit-content;
     border: 2px solid black;
     position: absolute;
@@ -73,17 +73,20 @@ footer {
     transform: translate(-50%, -50%);
     background-color: rgba(112, 57, 17, 0.767);
     font-size: 42px;
-    button{
+
+    button {
         font-size: 30px;
     }
-    p{
-        margin-bottom: 0%; 
+
+    p {
+        margin-bottom: 0%;
         font-size: 20px;
     }
 
 }
 
-#instrucciones, #creditos{
+#instrucciones,
+#creditos {
     height: fit-content;
     border: 2px solid black;
     position: absolute;
@@ -92,68 +95,67 @@ footer {
     transform: translate(-50%, -50%);
     background-color: rgba(112, 57, 17, 0.767);
     font-size: 42px;
-    button{
+
+    button {
         font-size: 30px;
     }
-    p{
+
+    p {
         font-family: 'system';
         color: rgb(243, 238, 238);
-        margin-bottom: 0%; 
+        margin-bottom: 0%;
         font-size: 30px;
     }
-
 }
 
-.difButton{
+.difButton {
     margin-left: 4px;
     width: 145px;
     height: 40px;
     border: 1px solid black;
 }
 
-.miraButton{
+.miraButton {
     width: 45px;
     height: 40px;
     border: 1px solid black;
 }
 
-.otrosButton{
+.otrosButton {
     width: 230px;
     height: 40px;
     border: 1px solid black;
 }
 
-.active{
+.active {
     border: 2px solid rgb(255, 166, 0);
     transform: scale(1.1);
 }
 
-#play{
+#play {
     width: 470px;
     height: 60px;
     border: 1px solid black;
 }
 
 button {
-  display: inline-block;
-  background-color: #311f08;
-  color: white;
-  border-radius: 8px;
-  text-decoration: none;
-  font-family: sans-serif;
-  font-weight: bold;
-  /* Sombras para el relieve */
-  box-shadow: 0 5px 0 #1a1206; 
-  transition: all 0.1s;
-  position: relative;
+    display: inline-block;
+    background-color: #492f0d;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-weight: bold;
+    box-shadow: 0 5px 0 #1a1206;
+    transition: all 0.1s;
+    position: relative;
 }
 
 button:hover {
-  background-color: #54a0ff;
+    background-color: #54a0ff;
 }
 
 button:active {
-  /* Al hacer click, la sombra se reduce y el botón baja */
-  box-shadow: 0 2px 0 #2c3e50;
-  top: 3px;
+    box-shadow: 0 2px 0 #2c3e50;
+    top: 3px;
 }

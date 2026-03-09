@@ -246,14 +246,8 @@ function disparar(e) {
     disparoY = e.offsetY;
     if ((disparoX > posicionesSalida[posicion].X && disparoX < (posicionesSalida[posicion].X + posicionesSalida[posicion].sizeX))
         && (disparoY < posicionesSalida[posicion].Y && disparoY > (posicionesSalida[posicion].Y - 120))) {
-        if (personajes[personaje].type == 1) {
-            pain()
-            personaje = 7
-        } else {
-            puntuacion += 10
-            personaje = 7
-        }
-        if (!aniquilar) {
+
+        if (!aniquilar && personaje != 7) {
             secuenciaHumo = setInterval(() => {
                 aniquilar = true
                 movimientoHumo++;
@@ -264,6 +258,15 @@ function disparar(e) {
                 }
             }, 60);
         }
+
+        if (personajes[personaje].type == 1) {
+            pain()
+            personaje = 7
+        } else {
+            puntuacion += 10
+            personaje = 7
+        }
+
     }
 
     if ((disparoX > corazon.Salidas[posicionCorazon].X && disparoX < (corazon.Salidas[posicionCorazon].X + corazon.Tamaño.X))

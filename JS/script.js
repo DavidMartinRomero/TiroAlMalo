@@ -152,6 +152,8 @@ let aniquilar = false
 let corazonEstado = false
 let posicionCorazon
 let probabilidadCorazon = 10 / dificultad
+let posicion
+let yAbajo
 
 //
 // Eventos
@@ -213,7 +215,7 @@ function toPlay() {
     secuencia = 1;
     puntuacion = 0
 
-    timerSecuencia = setInterval(() => {
+    let timerSecuencia = setInterval(() => {
         num--;
         if (num <= 0) {
             clearInterval(timerSecuencia);
@@ -308,7 +310,7 @@ function muertoMatao() {
 }
 
 function dibujarPersonajeActual() {
-    const yAbajo = posicionesSalida[posicion].Y;
+    yAbajo = posicionesSalida[posicion].Y;
 
     // Lógica de movimiento
     if (estadoPersonaje == 1) { // Sube

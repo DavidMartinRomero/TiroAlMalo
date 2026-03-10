@@ -10,7 +10,7 @@ const $fondo2 = document.getElementById('fondo2');
 const $fondo3 = document.getElementById('fondo3');
 const $sprites = document.getElementById('sprites');
 
-// Pillo el menu y sus botones
+// Pillo el menuY sus botones
 const $menu = document.getElementById('menu');
 const $Dificultad1 = document.getElementById('difButton1');
 const $Dificultad2 = document.getElementById('difButton2');
@@ -93,6 +93,7 @@ const corazon = {
     PosicionRecorte: { X: 2200, Y: 40 },
     RecorteSize: { X: 200, Y: 200 },
     Salidas: {
+        0: { X: 0, Y: -70},
         1: { X: 170, Y: 380 },
         2: { X: 310, Y: 380 },
         3: { X: 465, Y: 378 },
@@ -109,7 +110,7 @@ const corazon = {
         14: { X: 1125, Y: 440 },
         15: { X: 1310, Y: 440 }
     },
-    Tamaño: { X: 35, Y: 35 }
+    size: { X: 35, Y: 35 }
 }
 
 // Posiciones salida
@@ -144,16 +145,16 @@ let disparoX
 let disparoY
 let jugando = false;
 let secuencia = 4;
-let yAnimacion = 0;
+let YAnimacion = 0;
 let estadoPersonaje = 0; // 0: escondido, 1: subiendo, 2: esperando, 3: bajando
 let timerEspera = 0;
 let puntuacion = 0
 let aniquilar = false
 let corazonEstado = false
-let posicionCorazon
+let posicionCorazon = 0
 let probabilidadCorazon = 10 / dificultad
 let posicion
-let yAbajo
+let YAbajo
 
 //
 // Eventos
@@ -228,7 +229,7 @@ function toPlay() {
 function ongame() {
     personaje = Math.floor(Math.random() * 6 + 1)
     posicion = Math.floor(Math.random() * 15 + 1)
-    yAnimacion = posicionesSalida[posicion].Y;
+    YAnimacion = posicionesSalida[posicion].Y;
     estadoPersonaje = 1; // Empezar a subir
     timerEspera = 0;
 }
@@ -250,7 +251,7 @@ function disparar(e) {
         && (disparoY < posicionesSalida[posicion].Y && disparoY > (posicionesSalida[posicion].Y - 120))) {
 
         if (!aniquilar && personaje != 7) {
-            secuenciaHumo = setInterval(() => {
+            let secuenciaHumo = setInterval(() => {
                 aniquilar = true
                 movimientoHumo++;
                 if (movimientoHumo >= 7) {
@@ -270,8 +271,8 @@ function disparar(e) {
         }
     }
 
-    if ((disparoX > corazon.Salidas[posicionCorazon].X && disparoX < (corazon.Salidas[posicionCorazon].X + corazon.Tamaño.X))
-        && (disparoY > corazon.Salidas[posicionCorazon].Y && disparoY < (corazon.Salidas[posicionCorazon].Y + corazon.Tamaño.Y))
+    if ((disparoX > corazon.Salidas[posicionCorazon].X && disparoX < (corazon.Salidas[posicionCorazon].X + corazon.size.X))
+        && (disparoY > corazon.Salidas[posicionCorazon].Y && disparoY < (corazon.Salidas[posicionCorazon].Y + corazon.size.Y))
         && corazonEstado) {
         if (vidaActual < 5) {
             vidaActual++
@@ -284,7 +285,7 @@ function extraLife() {
     if (secuencia != 2 || vidaActual == 5)
         return
 
-    aleatorio100 = Math.floor(Math.random() * 100 + 1)
+    let aleatorio100 = Math.floor(Math.random() * 100 + 1)
 
     if (aleatorio100 < probabilidadCorazon && corazonEstado == false) {
         posicionCorazon = Math.floor(Math.random() * 15 + 1)
@@ -310,14 +311,14 @@ function muertoMatao() {
 }
 
 function dibujarPersonajeActual() {
-    yAbajo = posicionesSalida[posicion].Y;
+    YAbajo = posicionesSalida[posicion].Y;
 
     // Lógica de movimiento
     if (estadoPersonaje == 1) { // Sube
-        yAnimacion -= 4; // Velocidad de subida
-        if (yAnimacion <= yAbajo - 120) estadoPersonaje = 2;
+        YAnimacion -= 4; // Velocidad de subida
+        if (YAnimacion <= YAbajo - 120) estadoPersonaje = 2;
     }
-    else if (estadoPersonaje == 2) { // Arriba y logica daño del malo
+    else if (estadoPersonaje == 2) { // ArribaY logica daño del malo
         timerEspera++;
         if (timerEspera > (100 / (dificultad * 3))) {
             estadoPersonaje = 3;
@@ -329,8 +330,8 @@ function dibujarPersonajeActual() {
         }
     }
     else if (estadoPersonaje == 3) { // Baja
-        yAnimacion += 4;
-        if (yAnimacion >= yAbajo) {
+        YAnimacion += 4;
+        if (YAnimacion >= YAbajo) {
             estadoPersonaje = 0;
             setTimeout(ongame, 3000 / (dificultad * 3));
         }
@@ -342,7 +343,7 @@ function dibujarPersonajeActual() {
             $sprites,
             personajes[personaje].X, personajes[personaje].Y,
             250, 520,
-            posicionesSalida[posicion].X, yAnimacion,
+            posicionesSalida[posicion].X, YAnimacion,
             posicionesSalida[posicion].sizeX, posicionesSalida[posicion].sizeY
         );
     }
@@ -376,9 +377,9 @@ function draw() {
         // Dibujo la barra de vida
         ctx.drawImage(
             $sprites,     // La imagen original
-            40, vida[vidaActual],       // Inicio del recorte  X, Y
-            900, 205,     // Tamaño del recorte X,Y
-            30, 10, // Posición en canvas X, Y
+            40, vida[vidaActual],       // Inicio del recorte X,Y
+            900, 205,     // Tamaño del recorteX,Y
+            30, 10, // Posición en canvasX,Y
             350, 80 // Ancho final en el canvas, // Alto final en el canvas
         );
 
@@ -416,8 +417,8 @@ function draw() {
                     corazon.RecorteSize.X, corazon.RecorteSize.Y,
                     corazon.Salidas[posicionCorazon].X,
                     corazon.Salidas[posicionCorazon].Y,
-                    corazon.Tamaño.X,
-                    corazon.Tamaño.Y
+                    corazon.size.X,
+                    corazon.size.Y
                 );
             }
         }
@@ -444,8 +445,8 @@ function draw() {
                 corazon.RecorteSize.X, corazon.RecorteSize.Y,                 //                                           
                 corazon.Salidas[posicionCorazon].X,                           //                                   
                 corazon.Salidas[posicionCorazon].Y,                           //                                   
-                corazon.Tamaño.X,                                             //               
-                corazon.Tamaño.Y
+                corazon.size.X,                                             //               
+                corazon.size.Y
             );
         }
     }
